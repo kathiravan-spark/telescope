@@ -1,3 +1,3 @@
 <h3>Hello {{$user->name}} </h3>
 
-<p>Your Welcomed To project</p>
+<p>Your are Welcomed To project</p>
