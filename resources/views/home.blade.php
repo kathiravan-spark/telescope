@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="pull-right">
-                <a class="btn m-4 btn-info" href="{{ route('products.index') }}"> Product</a>
+                <a class="btn m-4 btn-info  " href="{{ route('products.index') }}"> Product</a>
             </div>
         </div>
     </div>

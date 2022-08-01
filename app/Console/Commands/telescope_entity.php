@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MorningMail;
 
 class telescope_entity extends Command
 {
@@ -12,7 +14,7 @@ class telescope_entity extends Command
      *
      * @var string
      */
-    protected $signature = 'telescope:prune';
+    protected $signature = 'telescope:work';
 
     /**
      * The console command description.
@@ -38,7 +40,11 @@ class telescope_entity extends Command
      */
     public function handle()
     {
-        DB::table('telescope_entries_tags')->truncate();
+        $users = DB::table('users')->get();
+        foreach($users as $user)
+        {            
+           Mail::to($user->email)->send(new MorningMail($user));    
+        }   
 
     }
 }

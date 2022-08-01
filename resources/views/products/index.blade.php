@@ -7,6 +7,8 @@
                 <h4>Telescope</h4>
             </div>
             <div class="pull-right">
+            <input type="hidden" name="user_id" value="{{$user_id}}">
+              <a class="btn btn-primary" href="{{ ('/home') }}"> Back</a>
                 <a class="btn m-4 btn-success " href="{{ route('products.create') }}"> Create New Product</a>
             </div>
         </div>
@@ -33,9 +35,9 @@
             <td>
                 <form action="{{ route('products.destroy',$product->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('products.show',$product->id,$user_id) }}">Show</a>
     
-                    <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('products.edit',$product->id,$user_id) }}">Edit</a>
    
                     @csrf
                     @method('DELETE')

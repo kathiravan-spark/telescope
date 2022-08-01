@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -15,9 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
-      
-        return view('products.index',compact('products'))
+        $user_id= Auth::id();
+        $products = Product::where('user_id',$user_id)->latest()->paginate(5);
+        return view('products.index',compact('products','user_id'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
   
@@ -28,7 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $user_id= Auth::id();
+        return view('products.create',compact('user_id'));
     }
   
     /**
@@ -58,7 +60,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show',compact('product'));
+        $user = Auth::user();
+        if($user->can('view', $product)){
+            $user_id= Auth::id();
+            return view('products.show',compact('product','user_id'));
+        }
+        else{
+            return redirect()->route('products.index');
+        }
+        
     }
   
     /**
@@ -70,7 +80,16 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         Log::info("Log is working");
-        return view('products.edit',compact('product'));
+        $user = Auth::user();
+        if($user->can('update', $product)){
+            $user_id= Auth::id();
+            
+        return view('products.edit',compact('product','user_id'));
+        }
+        else{
+          
+            return redirect()->route('products.index');
+        }
     }
   
     /**

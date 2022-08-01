@@ -30,6 +30,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
+                <input type="hidden" name="user_id" value="{{$user_id}}">
                 <input type="text" name="name" class="form-control" placeholder="Name">
             </div>
         </div>
