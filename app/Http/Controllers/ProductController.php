@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
   
 use App\Models\Product;
 use Illuminate\Http\Request;
-  
+use Illuminate\Support\Facades\Log;
+
 class ProductController extends Controller
 {
     /**
@@ -68,6 +69,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        Log::info("Log is working");
         return view('products.edit',compact('product'));
     }
   
